@@ -1,5 +1,5 @@
-.env
-.rar
+*.env
+*.rar
 .DS_Store
 Thumbs.db
 node_modules/
@@ -31,3 +31,6 @@ build/
 *.crt
 _cache/
 __pycache__/
+*.rar
+*.tar.gz
+*.zip

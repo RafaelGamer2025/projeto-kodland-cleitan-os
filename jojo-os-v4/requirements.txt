@@ -1,0 +1,8 @@
+requests
+beautifulsoup4
+google-genai
+selenium
+python-dotenv
+rich
+Pillow
+pygame
