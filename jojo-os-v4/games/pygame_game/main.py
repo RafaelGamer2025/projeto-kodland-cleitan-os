@@ -20,7 +20,11 @@ def load_image(image_name):
 
 # Carregar sons
 def load_sound(sound_name):
-    return pygame.mixer.Sound(os.path.join('assets', 'sounds', sound_name))
+    sound_folder = os.path.join('assets', 'sounds')
+    if not os.path.isdir(sound_folder):
+        base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+        sound_folder = os.path.join(base_dir, 'soms')
+    return pygame.mixer.Sound(os.path.join(sound_folder, sound_name))
 
 # Função principal do jogo
 def main():

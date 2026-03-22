@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import messagebox
 import os 
 import subprocess 
 from dotenv import load_dotenv
@@ -71,10 +70,29 @@ class JoJoOS:
             # Roda o jogo como um processo separado
             subprocess.Popen(["python", "games/pygame_game/main.py"])
         except Exception as e:
-            messagebox.showerror("OH NO!", f"HORY SHET! Não foi possível iniciar o jogo: {e}")
+            self.show_error_no_sound("OH NO!", f"HORY SHET! Não foi possível iniciar o jogo: {e}")
 
     def open_antivirus(self):
         self.antivirus_window()
+
+    def show_error_no_sound(self, title, message):
+        win = tk.Toplevel(self.root)
+        win.title(title)
+        win.geometry("420x140")
+        win.configure(bg=JoJoTheme.BLACK)
+        win.transient(self.root)
+        win.resizable(False, False)
+
+        tk.Label(win, text=title, fg=JoJoTheme.PINK, bg=JoJoTheme.BLACK, font=("Impact", 14, "bold")).pack(pady=(10, 5))
+        tk.Label(win, text=message, fg=JoJoTheme.GOLD, bg=JoJoTheme.BLACK, font=("Courier New", 10), wraplength=380, justify="center").pack(padx=10)
+
+        btn_frame = tk.Frame(win, bg=JoJoTheme.BLACK)
+        btn_frame.pack(pady=10)
+        tk.Button(btn_frame, text="OK", width=10, bg=JoJoTheme.PURPLE, fg=JoJoTheme.GOLD,
+                  command=win.destroy).pack()
+
+        # Evita que outros widgets da janela principal recebam foco até fechar
+        win.grab_set()
 
     def antivirus_window(self):
         win = tk.Toplevel(self.root)

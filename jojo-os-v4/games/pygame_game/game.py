@@ -28,10 +28,19 @@ def load_images():
 def load_sounds():
     sounds = {}
     sound_folder = os.path.join("assets", "sounds")
-    for filename in os.listdir(sound_folder):
-        if filename.endswith(".wav") or filename.endswith(".mp3"):
-            sound = pygame.mixer.Sound(os.path.join(sound_folder, filename))
-            sounds[filename] = sound
+    # Se assets/sounds não for um diretório (ex.: arquivo placeholder), usar a pasta comum 'soms'
+    if not os.path.isdir(sound_folder):
+        base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
+        sound_folder = os.path.join(base_dir, "soms")
+
+    if os.path.isdir(sound_folder):
+        for filename in os.listdir(sound_folder):
+            if filename.endswith(".wav") or filename.endswith(".mp3") or filename.endswith(".ogg"):
+                try:
+                    sound = pygame.mixer.Sound(os.path.join(sound_folder, filename))
+                    sounds[filename] = sound
+                except Exception:
+                    pass
     return sounds
 
 # Função principal do jogo
